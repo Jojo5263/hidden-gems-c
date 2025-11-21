@@ -17,6 +17,7 @@ int main(void) {
             json_t *cfg = json_object_get(root, "config");
             json_t *w = cfg ? json_object_get(cfg, "width") : NULL;
             json_t *h = cfg ? json_object_get(cfg, "height") : NULL;
+            json_t *gems = json_object_get( root, "visibleGems");
             const char *ws = (w && json_is_integer(w)) ? NULL : "?";
             const char *hs = (h && json_is_integer(h)) ? NULL : "?";
             if (ws || hs) {
@@ -29,9 +30,8 @@ int main(void) {
             fflush(stderr);
         }
 
-        const char *moves[] = {"N","S","E","W"};
-        const char *mv = moves[03];
-        printf("%s\n", mv);
+        
+       
         fflush(stdout);
 
         first_tick = 0;
