@@ -17,7 +17,18 @@ int main(void) {
             json_t *cfg = json_object_get(root, "config");
             json_t *w = cfg ? json_object_get(cfg, "width") : NULL;
             json_t *h = cfg ? json_object_get(cfg, "height") : NULL;
-            json_t *gems = json_object_get( root, "visibleGems");
+            
+            //Sichtbare Gems auslesen
+            json_t *gems = json_object_get(root, "visible_gems");
+            if (json_is_array(gems)) {
+                size_t index;
+                json_t *gem;
+                json_array_foreach(gems, index, gem){
+
+                }
+            
+
+            }
             const char *ws = (w && json_is_integer(w)) ? NULL : "?";
             const char *hs = (h && json_is_integer(h)) ? NULL : "?";
             if (ws || hs) {
