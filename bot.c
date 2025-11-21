@@ -8,6 +8,8 @@ int main(void) {
     int first_tick = 1;
     char buf[65536];
 
+
+    //--------------------------JSON Variabelen-----------------------
     while (fgets(buf, sizeof(buf), stdin)) {
         json_error_t err;
         json_t *root = json_loads(buf, 0, &err);
@@ -40,6 +42,8 @@ int main(void) {
             }
             fflush(stderr);
         }
+
+        //-----------------------Bot-Code-------------------------------
 
         
        
