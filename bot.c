@@ -30,7 +30,7 @@ int main(void) {
         }
 
         const char *moves[] = {"N","S","E","W"};
-        const char *mv = moves[0];
+        const char *mv = moves[03];
         printf("%s\n", mv);
         fflush(stdout);
 
