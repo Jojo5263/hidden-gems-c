@@ -26,7 +26,7 @@ int main(void) {
                 size_t index;
                 json_t *gem;
                 json_array_foreach(gems, index, gem){
-
+                    
                 }
             
 
@@ -40,14 +40,17 @@ int main(void) {
                 fprintf(stderr, "Random walker (C) launching on a %lldx%lld map\n",
                         (long long)json_integer_value(w), (long long)json_integer_value(h));
             }
-            fflush(stderr);
+            
         }
 
         //-----------------------Bot-Code-------------------------------
 
-        
-       
+        char *move;
+
+        printf("%s\n", move);
+
         fflush(stdout);
+        fflush(stderr);
 
         first_tick = 0;
         json_decref(root);
