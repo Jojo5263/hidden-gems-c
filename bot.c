@@ -92,6 +92,8 @@ int main(void) {
 
             lastX = bot_x;
             lastY = bot_y;
+
+            
         }
 
 
