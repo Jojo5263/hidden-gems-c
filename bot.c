@@ -37,7 +37,23 @@ int main(void) {
         int target_y = bot_y;
         int foundGem = 0;
         //Falls eins einen Gem in sichtweite gibt
-        
+        if (visible_gems && json_is_array(visible_gems) && json_array_size(visible_gems) > 0) {
+            size_t i;
+            json_t *gem;
+            //Distanz zum Gem berechnen
+            json_array_foreach(visible_gems, i, gem) {
+                json_t *pos = json_object_get(gem, "position");
+                int dx = (int)json_integer_value(json_array_get(pos, 0));
+                int dy = (int)json_integer_value(json_array_get(pos, 1));
+                int dist = abs(bot_x - dx) + abs(bot_y - dy);
+                if (dist < min_dist) {
+                    min_dist = dist;
+                    target_x = dx;
+                    target_y = dy;
+                    foundGem = 1;
+                }
+            }
+        }
 
         
         if (foundGem) {
@@ -47,8 +63,29 @@ int main(void) {
             else if (bot_y < target_y) printf("S\n");
             else if (bot_y > target_y) printf("N\n");
         } else {
-            //Nächsten Gem suchen
-            
+            //Nächsten Gem
+            switch (rand() % 4) {
+             
+                case 0:
+                    printf("N\n");
+                    break;
+
+                case 1:
+                    printf("S\n");
+                    break;
+
+                case 2:
+                    printf("W\n");
+                    break;
+
+                case 3:
+                    printf("E\n");
+                    break;
+
+                default:
+                    printf("Wait\n");
+                
+            }
         }
 
         fflush(stdout);
