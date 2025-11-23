@@ -28,18 +28,19 @@ int main(void) {
         //Bot & Gem Position laden
         json_t *bot_pos = json_object_get(root, "bot");
         json_t *visible_gems = json_object_get(root, "visible_gems");
+        json_t *walls = json_object_get(root, "walls");
 
+        
         int bot_x = (int)json_integer_value(json_array_get(bot_pos, 0));
         int bot_y = (int)json_integer_value(json_array_get(bot_pos, 1));
 
-        int lastX;
-        int lastY;
-
-        int min_dist = 1000000;
+        int min_dist = 1000;
         int target_x = bot_x;
         int target_y = bot_y;
         int foundGem = 0;
+        int nearestWall [] = {0,0};
         //Falls eins einen Gem in sichtweite gibt
+
         if (visible_gems && json_is_array(visible_gems) && json_array_size(visible_gems) > 0) {
             size_t i;
             json_t *gem;
@@ -66,10 +67,7 @@ int main(void) {
             else if (bot_y < target_y) printf("S\n");
             else if (bot_y > target_y) printf("N\n");
         } else {
-            //Nächsten Gem suchen
-
             
-
 
         }
 
@@ -80,4 +78,14 @@ int main(void) {
     }
 
     return 0;
+}
+
+int nearestWallX(){
+
+    return 1;
+}
+
+int nearestWallY(){
+
+    return 1;
 }
