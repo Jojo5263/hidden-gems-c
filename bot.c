@@ -32,6 +32,9 @@ int main(void) {
         int bot_x = (int)json_integer_value(json_array_get(bot_pos, 0));
         int bot_y = (int)json_integer_value(json_array_get(bot_pos, 1));
 
+        int lastX;
+        int lastY;
+
         int min_dist = 1000000;
         int target_x = bot_x;
         int target_y = bot_y;
@@ -64,29 +67,13 @@ int main(void) {
             else if (bot_y > target_y) printf("N\n");
         } else {
             //Nächsten Gem suchen
-            switch (rand() % 4) {
-             
-                case 0:
-                    printf("N\n");
-                    break;
 
-                case 1:
-                    printf("S\n");
-                    break;
+            
 
-                case 2:
-                    printf("W\n");
-                    break;
 
-                case 3:
-                    printf("E\n");
-                    break;
-
-                default:
-                    printf("Wait\n");
-                
-            }
         }
+
+
 
         fflush(stdout);
         json_decref(root);
