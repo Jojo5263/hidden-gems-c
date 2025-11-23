@@ -32,6 +32,9 @@ int main(void) {
         int bot_x = (int)json_integer_value(json_array_get(bot_pos, 0));
         int bot_y = (int)json_integer_value(json_array_get(bot_pos, 1));
 
+        int lastX;
+        int lastY;
+
         int min_dist = 1000000;
         int target_x = bot_x;
         int target_y = bot_y;
@@ -86,7 +89,12 @@ int main(void) {
                     printf("Wait\n");
                 
             }
+
+            lastX = bot_x;
+            lastY = bot_y;
         }
+
+
 
         fflush(stdout);
         json_decref(root);
