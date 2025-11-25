@@ -37,14 +37,14 @@ int main(void) {
 
         int floorsPos[json_array_size(floors)][2];
         int floorsLoaded = 0;
-        if(!floorsLoaded)
+        /* if(!floorsLoaded)
         for (int i = 0; i < json_array_size(floors); ) {
             for (int j = 0; j < 2; j++) {
             
             }
 
             floorsLoaded = 1;
-        }
+        } */
 
         int min_dist = 1000000;
         int target_x = bot_x;
