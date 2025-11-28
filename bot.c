@@ -13,8 +13,7 @@ int lastPosY;
 int floors;
 json_t *w;
 json_t *h;
-
-int **checked;
+/* int **checked; */
 
 // 4-Way Bresenham Line Algorithm
 void goTo(int BotX, int BotY, int TargetX, int TargetY) {
@@ -25,18 +24,18 @@ void goTo(int BotX, int BotY, int TargetX, int TargetY) {
   int err = dx - dy;
 
   // Bresenham decision next step
-  if (err * 2 > -dy) {
+  if (err <= 0) {
     // Move in X direction
     if (sx > 0)
-      printf("W\n");
+      printf("O\n");
     else
-      printf("E\n");
+      printf("W\n");
   } else {
     // Move in Y direction
     if (sy > 0)
-      printf("N\n");
-    else
       printf("S\n");
+    else
+      printf("N\n");
   }
 }
 
@@ -64,11 +63,11 @@ int main(void) {
     bot_x = json_integer_value(json_array_get(bot_pos, 0));
     bot_y = json_integer_value(json_array_get(bot_pos, 1));
 
-    checked = (int **)malloc(json_number_value(w));
+    /* checked = (int **)malloc(json_integer_value(w) * sizeof(int *));
 
     for (int i = 0; i < json_integer_value(w); ++i) {
-      checked[i] = (int *)malloc(json_integer_value(h));
-    }
+      checked[i] = (int *)malloc(json_integer_value(h) * sizeof(int));
+    } */
 
     if (json_array_size(visible_gems) > 0) {
       gem_X = json_integer_value(
@@ -93,6 +92,12 @@ int main(void) {
         break;
       }
     }
+
+    /* for (int i = 0; i < json_integer_value(w); ++i) {
+      free(checked[i]);
+    }
+    free(checked);
+    checked = NULL; */
 
     fflush(stdout);
     json_decref(root);
