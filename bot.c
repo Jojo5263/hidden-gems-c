@@ -16,28 +16,22 @@ json_t *h;
 /* int **checked; */
 
 // 4-Way Bresenham Line Algorithm
-void goTo(int BotX, int BotY, int TargetX, int TargetY) {
-  int dx = abs(TargetX - BotX);
-  int dy = abs(TargetY - BotY);
-  int sx = (BotX < TargetX) ? 1 : -1;
-  int sy = (BotY < TargetY) ? 1 : -1;
-  int err = dx - dy;
+void goTo(int botX, int botY, int targetX, int targetY) {
+  int distX = abs(targetX - botX);
+  int distY = abs(targetY - botY);
+  int dirX = (botX < targetX) ? 1 : -1;  // 1 = Ost, -1 = West
+  int dirY = (botY < targetY) ? 1 : -1;  // 1 = Süd, -1 = Nord
+  float err = distX - distY;
 
-  // Bresenham decision next step
   if (err <= 0) {
-    // Move in X direction
-    if (sx > 0)
-      printf("O\n");
-    else
-      printf("W\n");
+    // In Y-Richtung bewegen
+    printf("%s\n", (dirY > 0) ? "S" : "N");
   } else {
-    // Move in Y direction
-    if (sy > 0)
-      printf("S\n");
-    else
-      printf("N\n");
+    // In X-Richtung bewegen
+    printf("%s\n", (dirX > 0) ? "E" : "W");
   }
 }
+
 
 int main(void) {
   char buf[65536];
