@@ -1,32 +1,24 @@
+#include <jansson.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <jansson.h>
 
 int main(void) {
     char buf[65536];
-    int first_tick = 1;
+    int bot_x, bot_y, gem_X, gem_Y;
 
     while (fgets(buf, sizeof(buf), stdin)) {
         json_error_t err;
         json_t *root = json_loads(buf, 0, &err);
-        if (!root) continue;
-
-        if (first_tick) {
-            //Bewegung in Buffer laden
-            json_t *cfg = json_object_get(root, "config");
-            json_t *w = cfg ? json_object_get(cfg, "width") : NULL;
-            json_t *h = cfg ? json_object_get(cfg, "height") : NULL;
-            if (w && h && json_is_integer(w) && json_is_integer(h)) {
-                fprintf(stderr, "Bot launching on a %lldx%lld map\n",
-                        (long long)json_integer_value(w),
-                        (long long)json_integer_value(h));
-            }
-            fflush(stderr);
-            first_tick = 0;
+        if (!root) {
+            printf("N\n");
+            continue;
         }
-        //Bot & Gem Position laden
+
         json_t *bot_pos = json_object_get(root, "bot");
+        bot_x = json_integer_value(json_array_get(bot_pos, 0));
+        bot_y = json_integer_value(json_array_get(bot_pos, 1));
+
         json_t *visible_gems = json_object_get(root, "visible_gems");
         json_t *walls = json_object_get(root, "walls");
 
@@ -37,11 +29,6 @@ int main(void) {
         int target_x = bot_x;
         int target_y = bot_y;
         int foundGem = 0;
-
-        //Vorherige Bot Position
-        int lastXBot;
-        int lastYBot;
-        
         //Falls eins einen Gem in sichtweite gibt
         if (visible_gems && json_is_array(visible_gems) && json_array_size(visible_gems) > 0) {
             size_t i;
@@ -69,7 +56,7 @@ int main(void) {
             else if (bot_y < target_y) printf("S\n");
             else if (bot_y > target_y) printf("N\n");
         } else {
-            //Nächsten Gem
+            //Nächsten Gem suchen
             switch (rand() % 4) {
              
                 case 0:
@@ -104,6 +91,5 @@ int main(void) {
         fflush(stdout);
         json_decref(root);
     }
-
     return 0;
 }
